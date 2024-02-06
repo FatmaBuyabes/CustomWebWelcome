@@ -1,14 +1,19 @@
 package com.letcode.SecureBankSystem.controller;
 
-import com.letcode.SecureBankSystem.ob.FirewellRequest;
+import com.letcode.SecureBankSystem.bo.CreateContactRequest;
+import com.letcode.SecureBankSystem.bo.FirewellRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
-@RestController("/api/v1/") // handle api and it is the head of all in point endpoint
+@RestController   // handle api and it is the head of all in point endpoint
+
 public class CodedController {
 
-    ArrayList<Contact> contact = new ArrayList<>();
+    List<CreateContactRequest> contacts = new ArrayList<>();  // the list is the parent and the array list is a sub-class
 
 
     @GetMapping("/sayHi")
@@ -31,27 +36,31 @@ public class CodedController {
     }
 
     @PostMapping("/addContact")
-    public String addContact(@RequestBody Contact contacts) {
-        for(Contact existingContact : contact){
-            if(existingContact.getEmail().equals(contacts.getEmail())){
-                return "Contact already exist try other email";
+    public ResponseEntity<String> addContact(@RequestBody CreateContactRequest createContactRequest) {
+        for (int i = 0; i < contacts.size(); i++) {  // to check the email exist
+            if (contacts.get(i).getEmail() == createContactRequest.getEmail()) {
+                return ResponseEntity.badRequest().body("Contact already exist");
             }
         }
-        contact.add(contacts);
+        contacts.add(createContactRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
-                    return "Name: " + contacts.getName()
-                    + "\nEmail: " + contacts.getEmail()
-                    + "\nPhone: " + contacts.getPhone();
 
     }
 
     @GetMapping("/getContactDetails")
-    public String getContactDetails(@RequestParam String name, String email, String phone) {
-        return "Name: " + name + "\nEmail: " + email + "\nPhone: " + phone;
+    public ResponseEntity<?> getContactDetails(@RequestParam String name) {
+        for (int i = 0; i < contacts.size(); i++) {
+            System.out.println(contacts.get(i).getName());
+        }
+        return ResponseEntity.ok(contacts);
 
     }
-
-
 }
+
+
+
+
+
 
 

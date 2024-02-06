@@ -1,4 +1,4 @@
-package com.letcode.SecureBankSystem.ob;
+package com.letcode.SecureBankSystem.bo;
 
 public class FirewellRequest {
     private String name;
