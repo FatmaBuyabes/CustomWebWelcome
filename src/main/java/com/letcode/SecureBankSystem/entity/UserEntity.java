@@ -1,7 +1,7 @@
 package com.letcode.SecureBankSystem.entity;
 
 
-import com.letcode.SecureBankSystem.util.enums.Status;
+import com.letcode.SecureBankSystem.util.enums.status.Status;
 import javax.persistence.*;
 
 @Entity
@@ -25,6 +25,17 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name="status", nullable = false)
     private Status status;
+
+    @Column(name="user_name",nullable = false)
+    private String username;
+
+    @Column(name="password",nullable = false)
+    private String password;
+
+    @OneToOne
+    @Enumerated
+    @JoinColumn(name="role_id")
+    private RoleEntity roles;
 
 
     public Status getStatus() {
@@ -67,5 +78,27 @@ public class UserEntity {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public RoleEntity getRoles() {
+        return roles;
+    }
+
+    public void setRoles(RoleEntity roles) {
+        this.roles = roles;
+    }
 }

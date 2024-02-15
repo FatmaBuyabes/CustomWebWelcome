@@ -3,11 +3,8 @@ package com.letcode.SecureBankSystem.bo.user;
 public class CreateUserRequest {
 
     private String name;
-
     private String phone;
-
     private String email;
-
     private String status;
 
     public String getStatus() {
@@ -17,9 +14,6 @@ public class CreateUserRequest {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
-
 
 
     public String getName() {

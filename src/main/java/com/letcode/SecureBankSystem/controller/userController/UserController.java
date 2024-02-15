@@ -1,9 +1,8 @@
 package com.letcode.SecureBankSystem.controller.userController;
 
-import com.letcode.SecureBankSystem.bo.UpdateUserRequest;
 import com.letcode.SecureBankSystem.bo.user.CreateUserRequest;
-import com.letcode.SecureBankSystem.service.UserService;
-import com.letcode.SecureBankSystem.util.enums.Status;
+import com.letcode.SecureBankSystem.bo.user.UpdateUserStatusRequest;
+import com.letcode.SecureBankSystem.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +12,7 @@ public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService) {
+
         this.userService = userService;
     }
 
@@ -21,7 +21,7 @@ public class UserController {
     public ResponseEntity<String> createUser(@RequestBody CreateUserRequest createUserRequest) {
         try {
             userService.saveUser(createUserRequest);
-        } catch (IllegalAccessError e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok("User Created Successfully");
@@ -29,12 +29,11 @@ public class UserController {
     }
 
 
-
-    @GetMapping("/update-user-status")
-    public ResponseEntity<String> updateUser(@RequestParam Long userId, @RequestBody UpdateUserRequest updateUserRequest) {
+    @PutMapping("/update-user-status")
+    public ResponseEntity<String> updateUser(@RequestParam Long userId, @RequestBody UpdateUserStatusRequest updateUserStatusRequest) {
         try {
-            userService.updateUserStatus(updateUserRequest);
-        } catch (IllegalAccessError e) {
+            userService.updateUserStatus(userId, updateUserStatusRequest);
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 

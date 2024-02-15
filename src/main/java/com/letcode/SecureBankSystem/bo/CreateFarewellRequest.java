@@ -1,6 +1,6 @@
 package com.letcode.SecureBankSystem.bo;
 
-public class FirewellRequest {
+public class CreateFarewellRequest {
     private String name;
 
     public String getName() {

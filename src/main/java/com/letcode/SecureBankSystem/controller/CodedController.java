@@ -1,7 +1,7 @@
 package com.letcode.SecureBankSystem.controller;
 
 import com.letcode.SecureBankSystem.bo.CreateContactRequest;
-import com.letcode.SecureBankSystem.bo.FirewellRequest;
+import com.letcode.SecureBankSystem.bo.CreateFarewellRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController   // handle api and it is the head of all in point endpoint
-
+@RequestMapping("/api/v1/user")
 public class CodedController {
 
     List<CreateContactRequest> contacts = new ArrayList<>();  // the list is the parent and the array list is a sub-class
 
 
     @GetMapping("/sayHi")
-
     public String sayHi() {
         return "Welcome to Coded";
 
@@ -29,8 +28,9 @@ public class CodedController {
         return "Hello " + name + " !";
     }
 
+
     @PostMapping("/farewell")
-    public String farewell(@RequestBody FirewellRequest farewellRequest) {
+    public String farewell(@RequestBody CreateFarewellRequest farewellRequest) {
         return "Goodbye " + farewellRequest.getName() + " !";
 
     }
